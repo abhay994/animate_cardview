@@ -29,25 +29,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+         
           imageView=(ImageView)findViewById(R.id.imageView2);
           cardView=(CardView)findViewById(R.id.card);
-        relativeLayout=(RelativeLayout)findViewById(R.id.lay) ;
-        Toast.makeText(getApplicationContext(),String.valueOf(sizeChanged),Toast.LENGTH_SHORT).show();
-         imageView.setOnClickListener(new View.OnClickListener() {
+          relativeLayout=(RelativeLayout)findViewById(R.id.lay) ;
+     
+     //  Toast.makeText(getApplicationContext(),String.valueOf(sizeChanged),Toast.LENGTH_SHORT).show();
+       
+     imageView.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-               cardView.animate()
+               
+              cardView.animate()
                        .setInterpolator(new FastOutSlowInInterpolator())
                        .setListener(new Animator.AnimatorListener() {
-                           @Override
+                         
+                          @Override
                            public void onAnimationStart(Animator animation) {
+                               
                                DisplayMetrics metrics = getApplicationContext().getResources().getDisplayMetrics();
                                float dp = 250f;
                                float fpixels = metrics.density * dp;
                                int pixels = (int) (fpixels + 0.5f);
-                               TransitionManager.beginDelayedTransition(relativeLayout);
+                              
+                              TransitionManager.beginDelayedTransition(relativeLayout);
                                ViewGroup.LayoutParams params = cardView.getLayoutParams();
-                               if (sizeChanged) {
+                             
+                              if (sizeChanged) {
                                    params.width=savedWidth;
                                    params.height = savedHeight;
 
@@ -59,8 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                                }
+                               
                                sizeChanged = !sizeChanged;
-                               Toast.makeText(getApplicationContext(),String.valueOf(sizeChanged),Toast.LENGTH_SHORT).show();
+                           //    Toast.makeText(getApplicationContext(),String.valueOf(sizeChanged),Toast.LENGTH_SHORT).show();
                                cardView.setLayoutParams(params);
 
 
@@ -86,80 +95,5 @@ public class MainActivity extends AppCompatActivity {
          });
 
     }
-    void anim() {
-        int cx =relativeLayout.getLeft();
-        int cy = relativeLayout.getBottom();
-        int finalRadius = (int) Math.hypot(relativeLayout.getWidth(), relativeLayout.getHeight());
-        if (bb) {
-
-
-
-            anim = ViewAnimationUtils.createCircularReveal(cardView, cx, cy, 0, finalRadius);
-
-
-            anim.setDuration(1000);
-            anim.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-
-
-
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-        cardView.setVisibility(View.VISIBLE);
-
-
-            anim.start();
-
-            bb=false;
-
-        } else {
-
-
-
-            Animator anim2 = ViewAnimationUtils.createCircularReveal(relativeLayout, cx, cy, finalRadius, 0);
-            anim2.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    cardView.setVisibility(View.GONE);
-
-
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-
-            anim2.setDuration(500);
-            anim2.start();
-            bb=true;
-        }
-    }
+   
 }
